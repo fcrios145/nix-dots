@@ -9,4 +9,4 @@
         - [ ] typescript, html, css , javascript
     - [ ] Telescope
     - [ ] Treesitter
--[x] tmux
+- [x] tmux
