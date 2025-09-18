@@ -1,0 +1,95 @@
+import Quickshell              // for PanelWindow
+import QtQuick                 // for Text
+import QtQuick.Layouts                 // for Text
+import QtQuick.Controls                 // for Text
+import Quickshell.Hyprland
+import Quickshell.Services.Mpris   // <- correct import
+
+ColumnLayout {
+  property int clicks: 0
+
+  function updateText() {
+    clicks += 1;
+    label.text = `the button has been clicked ${clicks} times!`;
+  }
+
+  Button {
+    id: button
+    text: "click me"
+  }
+
+  Text {
+    id: label
+    text: "the button has not been clicked"
+  }
+
+  Component.onCompleted: {
+    button.clicked.connect(updateText)
+  }
+}
+
+// PanelWindow {
+//     anchors {
+//         top: true
+//         left: true
+//         right: true
+//     }
+//
+//     implicitHeight: 30
+//     color: "#88000000"   // ARGB: 88 is alpha (~53% opacity), then RGB
+//
+//     // Text {
+//     //     color: 'white'
+//     //     //text: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.name : "No Workspace"
+//     //     //text: HyprlandToplevel.address
+//     //     text: 'dagon'
+//     // }
+//
+//     Repeater {
+//         model: Mpris.players     // ObjectModel<MprisPlayer>
+//         delegate: Rectangle {
+//             // only show the player if it is actively playing
+//             visible: modelData.isPlaying || modelData.playbackState === MprisPlaybackState.Playing
+//             width: textItem.width
+//             height: textItem.height
+//
+//             Text {
+//                 text: (modelData.trackArtist || "Unknown Artist") + " — " + (modelData.trackTitle || "Unknown Title")
+//                 elide: Text.ElideRight
+//                 color: "gray"
+//             }
+//
+//             MouseArea { // simple play/pause toggle on click
+//                 anchors.fill: parent
+//                 //onClicked: modelData.togglePlaying()
+//                 onClicked: console.log("Clicked music item!")
+//
+//             }
+//         }
+//     }
+//
+//     Row {
+//         spacing: 12
+//         anchors.centerIn: parent
+//
+//         Repeater {
+//             model: Hyprland.workspaces
+//             delegate: Text {
+//                 text: modelData.name
+//                 color: modelData.focused ? "#CB9CF2" : "gray"
+//             }
+//         }
+//     }
+//
+//     // Text {
+//     //   // center the bar in its parent component (the window)
+//     //   anchors.centerIn: parent
+//     //   //rotation: 270
+//     //   //verticalAlignment: Text.AlignVCenter
+//     //   //horizontalAlignment: Text.AlignHCenter
+//     //
+//     //   //text: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.name : "No Workspace"
+//     //   text: Hyprland.focusedWorkspace ? Hyprland.focusedWorkspace.name : "No Workspace"
+//     // }
+// }
+//

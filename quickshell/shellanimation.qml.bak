@@ -1,0 +1,52 @@
+import Quickshell
+import QtQuick
+
+PanelWindow {
+  width: 300
+  height: 200
+
+  Rectangle {
+    id: hoverBox
+    anchors.centerIn: parent
+    width: 100
+    height: 40
+    radius: 10
+    color: hovered ? "#5E81AC" : "#4C566A"
+    border.color: "#ECEFF4"
+    border.width: 1
+
+    property bool hovered: false
+
+    // Animaciones para suavizar cambios
+    Behavior on width {
+      NumberAnimation { duration: 200; easing.type: Easing.OutQuad }
+    }
+    Behavior on height {
+      NumberAnimation { duration: 200; easing.type: Easing.OutQuad }
+    }
+    Behavior on color {
+      ColorAnimation { duration: 200 }
+    }
+
+    MouseArea {
+      anchors.fill: parent
+      hoverEnabled: true
+      onEntered: hoverBox.hovered = true
+      onExited: hoverBox.hovered = false
+    }
+
+    states: [
+      State {
+        name: "hovered"
+        when: hoverBox.hovered
+        PropertyChanges {
+          target: hoverBox
+          width: 160
+          height: 60
+          color: "#88C0D0"
+        }
+      }
+    ]
+  }
+}
+
